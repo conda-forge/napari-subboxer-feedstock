@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/napari-subboxer-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/napari-subboxer-{{ version }}.tar.gz
   sha256: 381a9e95c505e9d2240428287876ac45bb656566071b48f51e2d1f13fa2c2088
 
 build:
@@ -14,12 +14,12 @@ build:
     - napari-subboxer = napari_subboxer.cli:cli
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.7
+    - python {{ python_min }}
     - setuptools-scm
   run:
     - einops
@@ -29,7 +29,7 @@ requirements:
     - napari-plugin-engine >=0.1.4
     - numpy
     - pydantic
-    - python >=3.7
+    - python >={{ python_min }}
     - starfile
     - typer
 
@@ -42,6 +42,7 @@ test:
     - napari-subboxer --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/alisterburt/napari-subboxer
